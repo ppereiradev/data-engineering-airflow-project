@@ -1,0 +1,42 @@
+services:
+  airflow-core:
+    stdin_open: true
+    tty: true
+    container_name: airflow-core
+    build:
+      context: ./airflow-core
+    env_file: ./env/airflow-core.env
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - ./config/airflow.cfg:/airflow-core/airflow.cfg
+      - ./dags:/airflow-core/dags
+      - ./data:/airflow-core/data
+      - ./scripts:/airflow-core/scripts
+      - ./tests:/airflow-core/tests
+
+  airflow-postgres:
+    stdin_open: true
+    tty: true
+    image: postgres:17
+    container_name: airflow-postgres
+    env_file: ./env/airflow-postgres.env
+    volumes:
+      - airflow-pgdata:/var/lib/postgresql/data
+
+  warehouse-postgres:
+    stdin_open: true
+    tty: true
+    image: postgres:17
+    container_name: warehouse-postgres
+    env_file: ./env/warehouse-postgres.env
+    volumes:
+      - warehouse-pgdata:/var/lib/postgresql/data
+
+volumes:
+  airflow-pgdata:
+  warehouse-pgdata:
+
+
+

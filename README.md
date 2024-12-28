@@ -11,7 +11,7 @@ data-engineering-airflow-project/
 │
 ├── dags/                        # Definições de DAGs do Airflow
 │   ├── __init__.py
-│   ├── data_ingestion.py        # DAG para ingestão de dados
+│   ├── data_extraction.py       # DAG para extração de dados
 │   ├── data_transformation.py   # DAG para transformação de dados
 │   └── data_loading.py          # DAG para carregamento de dados no PostgreSQL
 │
@@ -47,6 +47,11 @@ data-engineering-airflow-project/
 │   ├── test_data_ingestion.py   # Testes para scripts de ingestão de dados
 │   ├── test_data_transformation.py # Testes para transformação de dados
 │   └── test_data_loading.py      # Testes para o carregamento de dados no PostgreSQL
+│
+├── env-sample/                  # Arquivos com variáveis de ambiente
+│   ├── airflow-core.env-sample
+│   ├── airflow-postgres.env-sample   #
+│   └── warehouse-postgres.env-sample #
 │
 ├── .gitignore                   # Ignora arquivos temporários e dados sensíveis
 ├── airflow.env                  # Variáveis de ambiente para o Airflow (ex: senhas, chaves de API)
