@@ -13,11 +13,11 @@ default_args = {
 }
 
 with DAG(
-    'CSVTOJSON',
+    'csv_to_sql',
     default_args=default_args,
     schedule_interval=timedelta(minutes=5),
     catchup=False
-) as dag:
+) as extraction_dag:
     print_starting = BashOperator(
         task_id='starting',
         bash_command='date && echo "I am reading the CSV now..."',
@@ -25,7 +25,7 @@ with DAG(
 
     csv_to_json = BashOperator(
         task_id='converting',
-        bash_command='python /airflow-core/scripts/csv_to_json.py'
+        bash_command='python /airflow-core/scripts/data_extraction/csv_to_sql.py'
     )
 
     print_finishing = BashOperator(
