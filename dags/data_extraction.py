@@ -3,6 +3,7 @@ from datetime import timedelta
 
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
+from airflow.operators.dagrun_operator import TriggerDagRunOperator
 
 
 default_args = {
@@ -33,5 +34,11 @@ with DAG(
         bash_command='date && echo "I am finishing now..."',
     )
 
+    trigger_populate = TriggerDagRunOperator(
+        task_id='trigger_populate',
+        trigger_dag_id='populate_table',
+    )
+
     print_starting >> csv_to_json
     csv_to_json >> print_finishing
+    print_finishing >> trigger_populate
